@@ -40,8 +40,8 @@ const authConfig = {
     },
     //to get the ID
     async session({ session, user }) {
-      const guest = await getGuest(session.user.email);
-      session.user.guestId = guest.guest.Id;
+      const guest = await getGuest(session?.user?.email);
+      session.user.guestId = guest.id;
       return session;
     },
   },
