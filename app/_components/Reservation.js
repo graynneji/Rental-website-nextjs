@@ -15,7 +15,7 @@ async function Reservation({ cabin }) {
       <DateSelector
         settings={settings}
         bookedDates={bookedDates}
-        caabin={cabin}
+        cabin={cabin}
       />
       {session?.user ? (
         <ReservationForm user={session?.user} cabin={cabin} />
