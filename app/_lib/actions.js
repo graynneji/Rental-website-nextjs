@@ -34,7 +34,35 @@ export async function updateGuest(formData) {
   revalidatePath("/account/profile");
 }
 
-export async function deleteReservation(bookingId) {
+//if you ue the bind make sure the formData comes as the second argument or the last one
+export async function createBooking(bookingData, formData) {
+  const session = await auth();
+  if (!session) throw new Error("You must be logged in");
+
+  //if we have a lot of data, create an object of all the data that is in the form data
+  // Object.entries(formData.entries())
+
+  const newBooking = {
+    ...bookingData,
+    guestId: session.user.guestId,
+    numGuests: formData.get("numGuests"),
+    observations: formData.get("observations").slice(0, 1000),
+    extrasPrice: 0,
+    totalPrice: bookingData.cabinPrice,
+    isPaid: false,
+    hasBreakfast: false,
+    //zod library read about it
+    status: "unconfirmed",
+  };
+  const { error } = await supabase.from("bookings").insert([newBooking]);
+
+  if (error) throw new Error("Booking could not be created");
+  revalidatePath(`/cabins/${bookingData.cabinId}`);
+
+  redirect("/cabins/thankyou");
+}
+
+export async function deleteBooking(bookingId) {
   const session = await auth();
   if (!session) throw new Error("You must be logged in");
 
@@ -56,7 +84,6 @@ export async function deleteReservation(bookingId) {
 }
 
 export async function updateBooking(formData) {
-  console.log(formData);
   //1. authentication
   const session = await auth();
   if (!session) throw new Error("You must be logged in");

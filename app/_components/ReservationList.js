@@ -1,7 +1,7 @@
 "use client";
 import ReservationCard from "./ReservationCard";
 import { useOptimistic } from "react";
-import { deleteReservation } from "../_lib/actions";
+import { deleteBooking } from "../_lib/actions";
 
 export default function ReservationList({ bookings }) {
   //optimisticDelete is similar to the dispatch function in the useReducer hook
@@ -17,7 +17,7 @@ export default function ReservationList({ bookings }) {
   );
   async function handleDelete(bookingId) {
     optimisticDelete(bookingId);
-    await deleteReservation(bookingId);
+    await deleteBooking(bookingId);
   }
   return (
     <ul className="space-y-6">
