@@ -4,6 +4,7 @@ import CabinList from "../_components/CabinList";
 import { Suspense } from "react";
 import Spinner from "../_components/Spinner";
 import Filter from "../_components/Filter";
+import ReservationReminder from "../_components/ReservationReminder";
 
 //cache will make the data the same for all user even if something change
 //this will regenerate the data in each request.
@@ -39,6 +40,7 @@ export default function Page({ searchParams }) {
       {/* the key when ever the value changes the suspense happens when ever whats inside is suspending */}
       <Suspense fallback={<Spinner />} key={filter}>
         <CabinList filter={filter} />
+        <ReservationReminder />
       </Suspense>
     </div>
   );
