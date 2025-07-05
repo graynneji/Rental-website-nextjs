@@ -11,7 +11,7 @@ async function CabinList({ filter }) {
   // noStore();
   const cabins = await getCabins();
   if (!cabins.length) return;
-
+  console.log(cabins);
   let displayedCabins;
   if (filter === "all") displayedCabins = cabins;
   if (filter === "small")
