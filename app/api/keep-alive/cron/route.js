@@ -10,8 +10,8 @@ export async function GET() {
       breakfastPrice: 9000,
     };
     // Lightweight harmless ping
-    const { error } = await supabase.from("settings").insert([settings]);
-    // const { error } = await supabase.from("settings").select("id").limit(1);
+    // const { error } = await supabase.from("settings").insert([settings]);
+    const { error } = await supabase.from("settings").select("id").limit(1);
 
     if (error) {
       console.error("Supabase ping failed:", error);
